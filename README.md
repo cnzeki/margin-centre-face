@@ -1,11 +1,31 @@
 ## margin-centre-face
 **Improved face recognition for video.**
 
-Our baseline model  is [InsightFace](https://github.com/deepinsight/insightface)  which introducted Angluar-Margin loss and performed well on many face recognition benchmarks. The code is based on  [InsightFace_TF](https://github.com/auroua/InsightFace_TF)  and we test its Model D .
+Our baseline model  is [InsightFace](https://github.com/deepinsight/insightface)  which introducted Angluar-Margin loss and performed well on many face recognition benchmarks. The code is based on  [InsightFace_TF](https://github.com/auroua/InsightFace_TF)  and we test its Model D.
+
+## Angular Centre Loss 
 
 We add a centre term to the loss function to make the embeddings closer with-in class.
 
+The original Angular Margin is 
 
+$$
+L_{am} = -\frac{1}{m} \sum_{i=1}^{m} log \frac{e^{s(cos(\theta_{yi} + m))}}{e^{s(cos(\theta_{yi} + m))} + \sum_{j=1, j\neq yi}^{n}e^{s cos\theta_{j}}}
+$$
+
+This loss only forces the margin between intra and inter class to be large. As a result, embedings have a large intra-class variance. To learn a model with small intra-class variance, we checked the loss function and add a **centre** term:
+
+$$
+L_{centre} = s ( 1 -\frac{1}{m} \sum_{i=1}^{m}  cos\theta_{yi} )
+$$
+
+In a hyper-sphere, an embeding vector is a point on the surface. It is easy to carry out that the $$W_{yi}$$ is center of all points in class $$yi$$. So $$cos\theta_{yi} $$ just represents how close is the embeding point to the center. To make is a loss funtion to minimize,  the average  $$cos\theta_{yi} $$  is subtracted by $$1$$. And because we have a scalar $$s$$ in $$L_{am}$$ , we apply it here to make scale match.
+
+Then the final loss is a weighted sum them and the weight decay term :
+
+$$ L = L_{am} + \beta L_{centre} + \alpha ||W||^2 $$
+
+In this experiment we use $$\alpha=1e^{-4}$$ and  $$\beta= 0.3 $$
 
 ## Steps
 
