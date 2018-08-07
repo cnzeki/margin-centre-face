@@ -1,0 +1,30 @@
+; Testing dataset
+[lfw]
+enable=True
+npdata=./dataset/faces_ms1m_112x112/lfw.np
+pairs=.
+prefix=.
+
+[ytf]
+enable=True
+pairs =./dataset/YouTubeFaces/ytf_img_pair.txt
+prefix=./dataset/YouTubeFaces/112x112
+splits=./dataset/YouTubeFaces/splits_corrected.txt
+ytf_error =./dataset/ytf-error.txt
+
+; Training dataset
+[WebFace]
+train_list=.
+prefix=.
+
+[ms1m]
+mxrec=./dataset/faces_ms1m_112x112
+
+[vgg]
+mxrec=./dataset/faces_vgg_112x112
+
+
+
+
+
+
