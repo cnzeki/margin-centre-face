@@ -15,7 +15,7 @@ This loss only forces the margin between intra and inter class to be large. As a
 
 ![](https://github.com/cnzeki/margin-centre-face/blob/master/image/centre-loss.jpg)
 
-In a hyper-sphere, an embeding vector is a point on the surface. It is easy to carry out that the $$W_{yi}$$ should be center of all points in class $$yi$$. So $$cos\theta_{yi} $$ just represents how close is the embeding point to the center. To make is a loss funtion to minimize,  the average  $$cos\theta_{yi} $$  is subtracted by $$1$$. Since there is a scalar $$s$$ in $$L_{am}$$ , we apply it to the centre loss too.
+In a hyper-sphere, an embeding vector is a point on the surface. It is easy to carry out that the **W_yi** should be center of all points in class **yi**. So **cosθ_yi** just represents how close is the embeding point to the center. To make is a loss funtion to minimize,  the average **cosθ_yi**  is subtracted by **1** Since there is a scalar **s** in **L_am** , we apply it to the centre loss too.
 
 Then the final loss is a weighted sum of these two plus the weight decay term :
 
@@ -71,7 +71,7 @@ python -m eval/test_lfw --data=PATH/TO/lfw.np --model_path=/YOUR/MODEL/PATH
 
 ### YTF
 
-Notice: We find that the even the  corrected version of [YTF split pair file](http://www.cs.tau.ac.il/~wolf/ytfaces/splits_corrected.txt) contains some errors, a list of wrong videos is [here](https://github.com/cnzeki/margin-centre-face/blob/master/dataset/ytf-error.txt)
+Notice: We find that even the  corrected version of [YTF split pair file](http://www.cs.tau.ac.il/~wolf/ytfaces/splits_corrected.txt) contains some errors, a list of wrong video names is here [ytf-error.txt](https://github.com/cnzeki/margin-centre-face/blob/master/dataset/ytf-error.txt)
 
 ```
 python -m eval/test_ytf --model_path=/YOUR/MODEL/PATH
