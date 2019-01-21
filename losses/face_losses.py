@@ -121,11 +121,9 @@ def margin_loss(embedding, labels, out_num, w_init=None):
         mask = tf.one_hot(labels, depth=out_num, name='one_hot_mask')
         inv_mask = tf.subtract(1., mask, name='inverse_mask')
         # loss
-        batch_size = embedding.shape.as_list()[0]
-        
-        loss = tf.reduce_sum(tf.multiply(cos_t, mask) - tf.multiply(cos_t, inv_mask))
-        loss = loss / batch_size / out_num
-        loss = 1 - loss
+        loss = tf.reduce_sum(tf.multiply(cos_t, mask), 1) - tf.reduce_max(tf.multiply(cos_t, inv_mask), 1)
+        loss = tf.reduce_mean(loss) # / batch_size / out_num
+        loss = 2 - loss
     return cos_t, loss
     
     

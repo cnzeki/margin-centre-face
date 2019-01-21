@@ -366,7 +366,14 @@ def get_resnet(inputs, num_layers, type=None, w_init=None, trainable=None, sess=
     else:
         raise ValueError('the input fn is unknown')
 
-    if num_layers == 50:
+    if num_layers == 32:
+        blocks = [
+            resnetse_v1_block('block1', base_depth=16, num_units=3, stride=2, rate=1, unit_fn=unit_fn),
+            resnetse_v1_block('block2', base_depth=32, num_units=3, stride=2, rate=1, unit_fn=unit_fn),
+            resnetse_v1_block('block3', base_depth=64, num_units=6, stride=2, rate=1, unit_fn=unit_fn),
+            resnetse_v1_block('block4', base_depth=128, num_units=3, stride=2, rate=1, unit_fn=unit_fn)
+        ]
+    elif num_layers == 50:
         blocks = [
             resnetse_v1_block('block1', base_depth=64, num_units=3, stride=2, rate=1, unit_fn=unit_fn),
             resnetse_v1_block('block2', base_depth=128, num_units=4, stride=2, rate=1, unit_fn=unit_fn),
