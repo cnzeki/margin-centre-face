@@ -158,7 +158,7 @@ class MxReader:
         
                 
 if __name__ == '__main__':
-    ms1m = MxReader('/home/ysten/data/insightface/faces_ms1m_112x112')
+    ms1m = MxReader('../data/faces_ms1m_112x112')
     ms1m.verbose()
     s = ms1m.imgrec.read_idx(1)
     read_idx((s, 0))
